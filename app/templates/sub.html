@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div>
+    <h2>请输入订阅信息</h2>
+    <form action="/sub" method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          <label for="address">address</label>
+          {{ form.address(class="form-control") }}
+        </div>
+        <div class="form-group">
+          <label for="topic">topic</label>
+          {{ form.topic(class="form-control") }}
+        </div>
+        <div class="form-group">
+          <label for="qoc">qoc</label>
+          {{ form.qoc(class="form-control") }}
+        </div>
+        <div class="form-group">
+          <label for="client_id">client_id</label>
+          {{ form.client_id(class="form-control") }}
+        </div>
+        <div class="form-group">
+          <label for="user_name">user_name</label>
+          {{ form.user_name(class="form-control") }}
+        </div>
+        <div class="form-group">
+          <label for="password">password</label>
+          {{ form.password(class="form-control") }}
+        </div>
+        <button class="btn btn-default" type="submit">订阅</button>
+    </form>
+    </div>
+
+
+    {% for error in form.errors.content %}
+        <div>{{ error }}</div>
+    {% endfor %}
+
+    <div>
+        <h2>接收到的消息</h2>
+        {% if msg %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>topic</th>
+                        <th>content</th>
+                        <th>发布者</th>
+                        <th>接收时间</th>
+                        <th>发布时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                   <td>{{ msg.topic }}</td>
+                   <td>{{ msg.content }}</td>
+                   <td>{{ msg.user_name }}</td>
+                   <td>{{ msg.receive_time }}</td>
+                   <td>{{ msg.create_time }}</td>
+                   </tr>
+                </tbody>
+            </table>
+        {% else %}
+                <h3 class="text-info">还没有接收到任何信息</h3>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
